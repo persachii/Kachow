@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kachow' ">
+    <ExternalConsole>true</ExternalConsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all" />
+    <PackageReference Include="Blazorise.Bootstrap5" Version="1.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Kachow.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Blazorise.Bootstrap5" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="Components\AdminComponents\" />
+    <None Remove="Components\AdminComponents\ParcelDataComponents\" />
+    <None Remove="Services\UserService\" />
+    <None Remove="Components\AdminComponents\UserDataComponents\" />
+    <None Remove="Components\AdminComponents\ParcelNamesDataComponents\" />
+    <None Remove="Components\AdminComponents\DeliveryMethodDataComponents\" />
+    <None Remove="Components\AdminComponents\DeliveryStatusDataComponents\" />
+    <None Remove="Components\AdminComponents\FeedbackDataComponents\" />
+    <None Remove="Components\AdminComponents\RefundCasesDataComponents\" />
+    <None Remove="Components\AdminComponents\WorkerDataComponents\" />
+    <None Remove="Services\ParcelNameService\" />
+    <None Remove="Services\DeliveryMethodService\" />
+    <None Remove="Services\DeliveryStatusService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\AdminComponents\" />
+    <Folder Include="Components\AdminComponents\ParcelDataComponents\" />
+    <Folder Include="Services\UserService\" />
+    <Folder Include="Components\AdminComponents\UserDataComponents\" />
+    <Folder Include="Components\AdminComponents\ParcelNamesDataComponents\" />
+    <Folder Include="Components\AdminComponents\DeliveryMethodDataComponents\" />
+    <Folder Include="Components\AdminComponents\DeliveryStatusDataComponents\" />
+    <Folder Include="Components\AdminComponents\FeedbackDataComponents\" />
+    <Folder Include="Components\AdminComponents\RefundCasesDataComponents\" />
+    <Folder Include="Components\AdminComponents\WorkerDataComponents\" />
+    <Folder Include="Services\ParcelNameService\" />
+    <Folder Include="Services\DeliveryMethodService\" />
+    <Folder Include="Services\DeliveryStatusService\" />
+  </ItemGroup>
+</Project>

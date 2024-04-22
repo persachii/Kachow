@@ -1,0 +1,39 @@
+﻿
+<Accordion>
+    <Collapse  Visible="@collapse1Visible">
+        <CollapseHeader >
+            <Heading  Size="HeadingSize.Is5">
+                <Button TextWeight="TextWeight.Bold" Clicked="@(()=>collapse1Visible = !collapse1Visible)">Как сделать заказ?</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            Зарегистрируйтесь используя соответсвующую кнопку меню, далее оставить заявку на доставку от двери можно в личном кабинете. Также заказ можно сделать через ближайший пункт выдачи.
+        </CollapseBody>
+    </Collapse>
+    <Collapse Visible="@collapse2Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button TextWeight="TextWeight.Bold" Clicked="@(()=>collapse2Visible = !collapse2Visible)">Можно ли изменить получателя?</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            Можно.
+        </CollapseBody>
+    </Collapse>
+    <Collapse  Visible="@collapse3Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button  TextWeight="TextWeight.Bold" Clicked="@(()=>collapse3Visible = !collapse3Visible)">Как осуществляется компенсация в случае задержки?</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            В зависмости от выбранных условий доставки может быть возвращена вся сумма заказа или ее часть.
+        </CollapseBody>
+    </Collapse>
+</Accordion>
+@code{
+    bool collapse1Visible = false;
+    bool collapse2Visible = false;
+    bool collapse3Visible = false;
+}
+

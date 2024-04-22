@@ -1,0 +1,58 @@
+﻿@using Kachow.Client.Services.ParcelService
+<div class="container pb-5 mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="text-nowrap me-5">Id:</h2>
+
+        <Addons>
+            <Addon AddonType="AddonType.Body">
+                <TextEdit MaskType="MaskType.RegEx" EditMask="[1-9]" @bind-Text="@trackNumber" Placeholder="123456789" />
+            </Addon>
+            <Addon AddonType="AddonType.End">
+                <Button Clicked="@RemoveThisParcel" Color="Color.Primary" Type="ButtonType.Submit" PreventDefaultOnSubmit>Удалить</Button>
+            </Addon>
+        </Addons>
+
+
+    </div>
+    <p>@message</p>
+
+</div>
+
+
+
+
+
+
+
+@code{
+    string? trackNumber;
+    int trackedParcelNumber;
+    bool isRemoved = false;
+    private string message = string.Empty;
+    [Inject]
+    private IParcelService parcelService { get; set; }
+    private async Task RemoveThisParcel()
+    {
+        if (trackNumber != null)
+        {
+            trackedParcelNumber = int.Parse(trackNumber);
+
+            isRemoved = await parcelService.Remove(trackedParcelNumber);
+
+            if (isRemoved)
+            {
+                message = "Позиция удалена";
+
+            }
+            else
+            {
+                message = "Ошибка: убедитесь, что такая позиция существует";
+            }
+
+        }
+
+
+    }
+
+}
+

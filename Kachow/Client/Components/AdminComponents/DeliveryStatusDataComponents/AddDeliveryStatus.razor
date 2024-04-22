@@ -1,0 +1,46 @@
+﻿@using Kachow.Shared.DTOs
+@using Kachow.Client.Services.DeliveryStatusService
+
+<div class="container">
+    <Field>
+        <FieldLabel>Имя статуса</FieldLabel>
+        <TextEdit @bind-Text="@statusName" Placeholder="Enter type name..." />
+    </Field>
+    <p>@message</p>
+    <Button Color="Color.Primary" Clicked="@AddStatus">Добавить</Button>
+</div>
+
+
+
+
+@code {
+    private string statusName;
+    private bool statusAdded;
+    private string message = string.Empty;
+    private DeliveryStatusDTO deliveryStatus;
+    [Inject]
+    private IDeliveryStatusService deliveryStatusService { get; set; }
+
+    private async Task AddStatus()
+    {
+        deliveryStatus = new DeliveryStatusDTO
+        {
+            Name = statusName
+
+        };
+
+
+        statusAdded = await deliveryStatusService.Add(deliveryStatus);
+        if (statusAdded)
+        {
+            message = "Новый статус создан";
+
+        }
+        else
+        {
+            message = "Ошибка (новый статус не создан)";
+        }
+
+    }
+}
+

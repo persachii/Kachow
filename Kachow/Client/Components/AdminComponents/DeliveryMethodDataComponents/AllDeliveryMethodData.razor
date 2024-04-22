@@ -1,0 +1,51 @@
+﻿<h2>Методы доставки:</h2>
+<Accordion>
+    <Collapse Visible="@collapse1Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse1Visible = !collapse1Visible)">Все способы доставки</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            <DeliveryMethodList />
+        </CollapseBody>
+    </Collapse>
+    <Collapse Visible="@collapse2Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse2Visible = !collapse2Visible)">Изменить способ доставки</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+
+        </CollapseBody>
+    </Collapse>
+    <Collapse Visible="@collapse3Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse3Visible = !collapse3Visible)">Удалить способ доставки</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+
+        </CollapseBody>
+    </Collapse>
+    <Collapse Visible="@collapse4Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse4Visible = !collapse4Visible)">Добавить способ доставки</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            <AddDeliveryMethod />
+        </CollapseBody>
+    </Collapse>
+</Accordion>
+
+@code{
+    bool collapse1Visible = false;
+    bool collapse2Visible = false;
+    bool collapse3Visible = false;
+    bool collapse4Visible = false;
+}
+

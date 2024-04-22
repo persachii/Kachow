@@ -1,0 +1,26 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Kachow.Server.Data.Models
+{
+	public class User
+	{
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column(Order = 1)]
+        public int Id { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public byte[] PasswordHash { get; set; } = new byte[32];
+        public byte[] PasswordSalt { get; set; } = new byte[32];
+        public string? VerificationToken { get; set; }
+        public DateTime? VerifiedAt { get; set; }
+        public string? PasswordResetToken { get; set; }
+        public DateTime? ResetTokenExpires { get; set; }
+        public string? Fullname { get; set; }
+        public string? Phone { get; set; }
+        public IEnumerable<Parcel>? Parcels { get; set; }
+        public IEnumerable<RefundCases>? RefundCases { get; set; }
+    }
+}
+

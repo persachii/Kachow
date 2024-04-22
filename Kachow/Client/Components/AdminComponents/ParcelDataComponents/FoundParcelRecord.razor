@@ -1,0 +1,71 @@
+﻿
+@using Kachow.Shared.DTOs
+@using Kachow.Client.Services.ParcelService
+@inject NavigationManager _navigationManager
+
+<div class="container">
+
+    @if (parcels == null)
+    {
+        <p><em>Not found</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Тип</th>
+                    <th>Способ доставки</th>
+                    <th>Дата отправки</th>
+                    <th>Ожидаемая дата доставки</th>
+                    <th>Статус</th>
+                    <th>Обновление</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var parcel in parcels)
+                {
+                    <tr>
+                        <td>@parcel.Id</td>
+                        <td>@parcel.Name</td>
+                        <td>@parcel.DeliveryMethodName</td>
+                        @if (parcel.DepartureDate.Equals(new DateTime()))
+                        {
+                            <td>-</td>
+                            <td>-</td>
+                        }
+                        else
+                        {
+                            <td>@parcel.DepartureDate.ToShortDateString()</td>
+
+                            <td> @parcel.AnticipatedDeliveryDate.ToShortDateString()</td>
+                        }
+
+                        <td>@parcel.Status</td>
+                        <td>@parcel.LastUpload</td>
+                        <td>@parcel.Price</td>
+                    </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+
+
+    }
+</div>
+
+@code{
+    private List<TrackedParcelDTO>? parcels;
+    [Inject]
+    private IParcelService parcelService { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        parcels = await parcelService.GetAllTrackedParcels();
+    }
+
+}
+

@@ -1,0 +1,29 @@
+﻿@page "/calculator"
+
+<h3>Узнайте стоимость доставки вашей посылки</h3>
+
+    <TextEdit Placeholder="Тип посылки"></TextEdit>
+    <TextEdit Placeholder="Способ доставки"></TextEdit>
+    <TextEdit Placeholder="Пункт выдачи"></TextEdit>
+    <Validation UsePattern>
+        <TextEdit Pattern="[A-Za-z]{3}">
+            <Feedback>
+                <ValidationError>Pattern does not match!</ValidationError>
+            </Feedback>
+        </TextEdit>
+    </Validation>
+    <Validation UsePattern>
+        <TextEdit Pattern="[A-Za-z]{3}">
+            <Feedback>
+                <ValidationError>Pattern does not match!</ValidationError>
+            </Feedback>
+        </TextEdit>
+    </Validation>
+
+    @code {
+        int parcelName;
+        int deliveryMethod;
+
+
+    }
+

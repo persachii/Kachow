@@ -1,0 +1,44 @@
+﻿@using Kachow.Shared.Models
+@using Kachow.Client.Services.DeliveryMethodService
+
+
+@if (methods == null)
+{
+    <p><em>Not found</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var method in methods)
+            {
+                <tr>
+
+                    <td>@method.Id</td>
+                    <td>@method.Name</td>
+                    <td>@method.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+
+@code{
+    private List<DeliveryMethod>? methods;
+    [Inject]
+    private IDeliveryMethodService deliveryMethodService { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        methods = await deliveryMethodService.GetAll();
+    }
+}
+

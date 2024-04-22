@@ -1,0 +1,54 @@
+﻿@using Kachow.Shared.DTOs
+@using Kachow.Client.Services.ParcelNameService
+
+<div class="container">
+    <Field>
+        <FieldLabel>Тип посылки</FieldLabel>
+        <TextEdit @bind-Text="@typeName" Placeholder="Enter type name..." />
+    </Field>
+    <Field>
+        <FieldLabel>Цена</FieldLabel>
+        <InputMask NumericInput @bind-Value="@value" Placeholder="Enter price (decimal)..." />
+    </Field>
+    <p>@message</p>
+    <Button Color="Color.Primary" Clicked="@AddType">Добавить</Button>
+</div>
+
+
+
+
+@code {
+    private string typeName;
+    private string value;
+    private decimal price;
+    private bool typeAdded;
+    private string message = string.Empty;
+    private ParcelNameDTO parcelName;
+    [Inject]
+    private IParcelNameService parcelNameService { get; set; }
+
+    private async Task AddType()
+    {
+        price = Decimal.Parse(value);
+        parcelName = new ParcelNameDTO
+        {
+            Name = typeName,
+            Price = price
+
+        };
+
+
+        typeAdded = await parcelNameService.Add(parcelName);
+        if (typeAdded)
+        {
+            message = "Новый тип создан";
+
+        }
+        else
+        {
+            message = "Ошибка (новый тип не создан)";
+        }
+
+    }
+}
+

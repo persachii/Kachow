@@ -1,0 +1,29 @@
+﻿<h2>Пользователи:</h2>
+<Accordion>
+    <Collapse Visible="@collapse1Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse1Visible = !collapse1Visible)">Все пользователи</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            <UsersList/>
+        </CollapseBody>
+    </Collapse>
+    <Collapse Visible="@collapse2Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse2Visible = !collapse2Visible)">Найти пользователя</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+
+        </CollapseBody>
+    </Collapse>
+</Accordion>
+
+@code{
+    bool collapse1Visible = false;
+    bool collapse2Visible = false;
+}
+

@@ -1,0 +1,44 @@
+﻿@using Kachow.Shared.Models
+@using Kachow.Client.Services.ParcelNameService
+
+
+@if (names == null)
+{
+    <p><em>Not found</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in names)
+            {
+                <tr>
+
+                    <td>@name.Id</td>
+                    <td>@name.Name</td>
+                    <td>@name.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+
+@code{
+    private List<ParcelName>? names;
+    [Inject]
+    private IParcelNameService parcelNameService { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        names = await parcelNameService.GetAll();
+    }
+}
+

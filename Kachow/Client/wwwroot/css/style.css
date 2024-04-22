@@ -1,0 +1,33 @@
+
+body {
+    font-family: Montserrat,sans-serif;
+
+}
+
+header {
+    padding: 100px 0;
+}
+
+header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+}
+
+
+.ab_us {
+    padding: 200px 0;
+    background: url(/images/istockphoto-1338099892-170667a.jpg) center no-repeat;
+    background-size: cover;
+}
+
+.ab_us_out {
+    
+}

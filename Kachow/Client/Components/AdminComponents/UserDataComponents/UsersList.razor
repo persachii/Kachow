@@ -1,0 +1,46 @@
+﻿@using Kachow.Shared.Models
+@using Kachow.Client.Services.UserService
+@inject NavigationManager _navigationManager
+
+
+@if (users == null)
+{
+    <p><em>Not found</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Номер телефона</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Fullname</td>
+                    <td>@user.Email</td>
+                    <td>@user.Phone</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+
+@code{
+    private List<User>? users;
+    [Inject]
+    private IUserService userService { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        users = await userService.GetAll();
+    }
+}
+

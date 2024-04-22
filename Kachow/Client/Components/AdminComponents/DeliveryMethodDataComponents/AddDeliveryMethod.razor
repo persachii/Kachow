@@ -1,0 +1,54 @@
+﻿@using Kachow.Shared.DTOs
+@using Kachow.Client.Services.DeliveryMethodService
+
+<div class="container">
+    <Field>
+        <FieldLabel>Способ доставки</FieldLabel>
+        <TextEdit @bind-Text="@typeName" Placeholder="Enter type name..." />
+    </Field>
+    <Field>
+        <FieldLabel>Цена</FieldLabel>
+        <InputMask NumericInput @bind-Value="@value" Placeholder="Enter price (decimal)..." />
+    </Field>
+    <p>@message</p>
+    <Button Color="Color.Primary" Clicked="@AddType">Добавить</Button>
+</div>
+
+
+
+
+@code {
+    private string typeName;
+    private string value;
+    private decimal price;
+    private bool typeAdded;
+    private string message = string.Empty;
+    private DeliveryMethodDTO deliveryMethod;
+    [Inject]
+    private IDeliveryMethodService deliveryMethodService { get; set; }
+
+    private async Task AddType()
+    {
+        price = Decimal.Parse(value);
+        deliveryMethod = new DeliveryMethodDTO
+        {
+            Name = typeName,
+            Price = price
+
+        };
+
+
+        typeAdded = await deliveryMethodService.Add(deliveryMethod);
+        if (typeAdded)
+        {
+            message = "Новый способ доставки создан";
+
+        }
+        else
+        {
+            message = "Ошибка (новый способ доставки не создан)";
+        }
+
+    }
+}
+

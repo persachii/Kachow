@@ -1,0 +1,86 @@
+﻿@using Kachow.Shared.DTOs
+@using Kachow.Client.Services.UserService
+<Button Clicked="@ShowModal" Color="Color.Secondary">Зарегистрироваться</Button>
+
+<Modal @ref="modalRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Регистрация</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Имя</FieldLabel>
+                <TextEdit @bind-Text="@fullname" Placeholder="Фродо" />
+            </Field>
+            <Field>
+                <FieldLabel>Номер телефона</FieldLabel>
+                <TextEdit @bind-Text="@phone" Placeholder="Беггинс" />
+            </Field>
+            <Field>
+                <FieldLabel>Почта</FieldLabel>
+                <TextEdit @bind-Text="@email" Placeholder="frodo@example.com" />
+            </Field>
+            <Field>
+                <FieldLabel>Пароль</FieldLabel>
+                <TextEdit @bind-Text="@password" Placeholder="123456f" />
+            </Field>
+            <Field>
+                <FieldLabel>Подтвердить пароль</FieldLabel>
+                <TextEdit @bind-Text="@confirmPassword" Placeholder="123456f" />
+            </Field>
+            <p>@message</p>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">Закрыть</Button>
+            <Button Color="Color.Primary" Clicked="@Register">Зарегистрироваться</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    private string fullname;
+    private string phone;
+    private string email;
+    private string password;
+    private string confirmPassword;
+    private bool userAdded;
+    private string message = string.Empty;
+    private Modal modalRef;
+    private UserRegisterRequest request;
+    [Inject]
+    private IUserService userService { get; set; }
+    private Task ShowModal()
+    {
+        return modalRef.Show();
+    }
+
+    private Task HideModal()
+    {
+        return modalRef.Hide();
+    }
+    private async Task Register()
+    {
+        request = new UserRegisterRequest
+        {
+            Fullname = fullname,
+            Email = email,
+            Phone = phone,
+            Password = password,
+            ConfirmPassword = confirmPassword
+
+        };
+        userAdded = await userService.Add(request);
+        if (userAdded)
+        {
+            message = "Регистрация успешна";
+
+        }
+        else
+        {
+            message = "Регистрация неуспешна";
+        }
+
+    }
+}
+

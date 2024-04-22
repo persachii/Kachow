@@ -1,0 +1,117 @@
+﻿@using Kachow.Shared.DTOs
+@using Kachow.Client.Services.DeliveryMethodService
+@using Kachow.Client.Services.ParcelNameService
+@using Kachow.Client.Services.ParcelService
+@using Kachow.Shared.Models
+
+<div class="container">
+    <Field>
+        <FieldLabel>User ID</FieldLabel>
+        <TextEdit MaskType="MaskType.RegEx" EditMask="[1-9]" @bind-Text="@userId" Placeholder="User ID" />
+    </Field>
+    <Field>
+        <FieldLabel>Способ доставки</FieldLabel>
+        <Select TValue="int"  @bind-SelectedValue="@selectedMethodId">
+            @if (methods == null)
+            {
+                <p><em>Not found</em></p>
+            }
+            else
+            {
+                @foreach (var method in methods)
+                {
+                    <SelectItem Value="@method.Id">@method.Name</SelectItem>
+                }
+
+            }
+
+        </Select>
+    </Field>
+    <Field>
+        <FieldLabel>Тип отправления</FieldLabel>
+        <Select TValue="int" @bind-SelectedValue="@selectedParcelNameId">
+            @if (parcelNames == null)
+            {
+                <p><em>Not found</em></p>
+            }
+            else
+            {
+                @foreach (var name in parcelNames)
+                {
+                    <SelectItem Value="@name.Id">@name.Name</SelectItem>
+                }
+
+            }
+        </Select>
+    </Field>
+    <Field>
+        <FieldLabel>Адрес отправления</FieldLabel>
+        <TextEdit @bind-Text="@departmentAddress" Placeholder="City, Street, 21" />
+    </Field>
+    <Field>
+        <FieldLabel>Адрес доставки</FieldLabel>
+        <TextEdit @bind-Text="@destinationAddress" Placeholder="City, Street, 8" />
+    </Field>
+
+    <p>@message</p>
+    <Button Color="Color.Primary" Clicked="@AddParcelRecord">Добавить</Button>
+</div>
+
+
+
+
+@code {
+    private string userId;
+    private int uid;
+    private int selectedMethodId = 1;
+    private int selectedParcelNameId = 1;
+    private string departmentAddress;
+    private string destinationAddress;
+
+    private bool parcelAdded;
+    private string message = string.Empty;
+    private ParcelDTO newParcel;
+
+    [Inject]
+    private IDeliveryMethodService deliveryMethodService { get; set; }
+    [Inject]
+    private IParcelNameService parcelNameService { get; set; }
+    [Inject]
+    private IParcelService parcelService { get; set; }
+
+    private List<DeliveryMethod>? methods;
+    private List<ParcelName>? parcelNames;
+
+    protected override async Task OnInitializedAsync()
+    {
+        methods = await deliveryMethodService.GetAll();
+        parcelNames = await parcelNameService.GetAll();
+    }
+
+    private async Task AddParcelRecord()
+    {
+        uid = int.Parse(userId);
+        newParcel = new ParcelDTO
+        {
+            UserId = uid,
+            DeliveryMethodId = selectedMethodId,
+            ParcelNameId = selectedParcelNameId,
+            DepartmentAddress = departmentAddress,
+            DestinationAddress = destinationAddress
+        };
+
+
+        parcelAdded = await parcelService.Add(newParcel);
+        if (parcelAdded)
+        {
+            message = "Новое отправление создано";
+
+        }
+        else
+        {
+            message = "Ошибка (новое отправление не создано)";
+        }
+
+    }
+}
+
